@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:paddingEnd="14dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="14dp"
+    android:paddingStart="16dp"
+    android:id="@+id/item_list_book"
+    android:paddingBottom="8dp">
 
     <LinearLayout
         android:orientation="vertical"
@@ -21,13 +27,14 @@
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/titleB"/>
+            android:id="@+id/mTitle"/>
     </LinearLayout>
 
     <ImageView
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:id="@+id/available"
-        app:srcCompat="@drawable/ic_available" />
+        app:srcCompat="@drawable/ic_available"
+        android:layout_gravity="center_vertical" />
 
 </LinearLayout>

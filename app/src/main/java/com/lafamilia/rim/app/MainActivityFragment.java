@@ -35,12 +35,17 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-        // Initialize realm
+    private void initRealm() {
+        // Initialize Realm
         Realm.init(getContext());
 
-        // Configure realm
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
+        // Configure Realm
+        RealmConfiguration realmConfiguration = new RealmConfiguration
+                .Builder()
+                .name("library.realm")
+                .build();
 
         // Clear the realm from last time
         Realm.deleteRealm(realmConfiguration);
@@ -53,9 +58,6 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-
-        listView = (ListView) view.findViewById(R.id.list_view);
-
         return view;
     }
 }

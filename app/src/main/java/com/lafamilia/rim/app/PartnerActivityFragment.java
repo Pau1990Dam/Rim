@@ -33,12 +33,18 @@ public class PartnerActivityFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initRealm();
+    }
 
-        // Initialize realm
+    private void initRealm() {
+        // Initialize Realm
         Realm.init(getContext());
 
-        // Configure realm
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
+        // Configure Realm
+        RealmConfiguration realmConfiguration = new RealmConfiguration
+                .Builder()
+                .name("library.realm")
+                .build();
 
         // Clear the realm from last time
         Realm.deleteRealm(realmConfiguration);
@@ -52,7 +58,7 @@ public class PartnerActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_partner, container, false);
 
-        listView = (ListView) view.findViewById(R.id.list_view);
+        listView = (ListView) view.findViewById(R.id.list_view_partner);
 
         return view;
     }
@@ -60,13 +66,17 @@ public class PartnerActivityFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        // Set up adapter
+        setAdapter();
+
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm bgRealm) {
+                // Save objects to realm database
                 Partner partner1 = bgRealm.createObject(Partner.class);
                 Partner partner2 = bgRealm.createObject(Partner.class);
 
-                // Update
                 partner1.setName("Marc");
                 partner1.setAge(29);
 
@@ -76,14 +86,13 @@ public class PartnerActivityFragment extends Fragment {
         }, new Realm.Transaction.OnSuccess() {
             @Override
             public void onSuccess() {
-                // Transaction was a success.
+                // Transaction was a success
                 Log.d("IS","Success");
-                setAdapter();
             }
         }, new Realm.Transaction.OnError() {
             @Override
             public void onError(Throwable error) {
-                // Transaction failed and was automatically canceled.
+                // Transaction failed and was automatically canceled
                 Log.d("IS","Error");
 
             }
@@ -91,13 +100,12 @@ public class PartnerActivityFragment extends Fragment {
     }
 
     public RealmResults<Partner> loadPartners() {
-        RealmQuery<Partner> query = realm.where(Partner.class);
-        return query.findAll();
+        // Get a list of partners from the realm database
+        return realm.where(Partner.class).findAll();
     }
 
     public void setAdapter(){
         partnerAdapter = new PartnerAdapter(loadPartners());
         listView.setAdapter(partnerAdapter);
-        partnerAdapter.notifyDataSetChanged();
     }
 }

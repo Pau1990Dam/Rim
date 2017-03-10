@@ -2,6 +2,7 @@ package com.lafamilia.rim.adapters;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,14 @@ import android.widget.TextView;
 
 import com.lafamilia.rim.R;
 import com.lafamilia.rim.models.Book;
-import com.lafamilia.rim.models.Partner;
 
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmBaseAdapter;
 
 /**
+ *
  * Created by laFamilia on 09/03/2017.
+ *
  */
 
 
@@ -43,17 +45,20 @@ public class BookAdapter extends RealmBaseAdapter<Book> implements ListAdapter {
             // Get item
             Book item  = adapterData.get(position);
 
-            TextView name = (TextView) convertView.findViewById(R.id.titleB);
+            TextView name = (TextView) convertView.findViewById(R.id.mTitle);
             TextView age = (TextView) convertView.findViewById(R.id.author);
             ImageView available = (ImageView) convertView.findViewById(R.id.available);
 
             // Populate view
             name.setText(item.getTitle());
             age.setText(item.getAuthor());
+
             if (item.isAvailable()) {
-                available.setImageDrawable(name.getContext().getResources().getDrawable(R.drawable.ic_available));
+                available.setImageDrawable(ContextCompat.getDrawable(available.getContext(),
+                        R.drawable.ic_available));
             } else {
-                available.setImageDrawable(name.getContext().getResources().getDrawable(R.drawable.ic_action_name));
+                available.setImageDrawable(ContextCompat.getDrawable(available.getContext(),
+                        R.drawable.ic_no_available));
             }
 
         }
