@@ -4,12 +4,53 @@
     android:id="@+id/content_book"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.lafamilia.rim.app.BookActivityFragment"
     tools:showIn="@layout/activity_book">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/list_view_book"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_height="350dp" />
+
+    <Button
+        android:text="Add"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="11dp"
+        android:id="@+id/bt_add"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_height="95dp" />
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Titulo"
+        android:ems="10"
+        android:id="@+id/et_titulo"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/list_view_book"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/bt_add"
+        android:layout_toStartOf="@+id/bt_add" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Autor"
+        android:ems="10"
+        android:id="@+id/et_autor"
+        android:layout_alignBottom="@+id/bt_add"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/bt_add"
+        android:layout_toStartOf="@+id/bt_add" />
 
 
 </RelativeLayout>
