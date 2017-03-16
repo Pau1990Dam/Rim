@@ -32,6 +32,7 @@ public class BookActivityFragment extends Fragment {
     private Button add;
     private EditText title;
     private EditText author;
+    private View view;
 
     public BookActivityFragment() {
     }
@@ -45,11 +46,18 @@ public class BookActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_book, container, false);
+       view = inflater.inflate(R.layout.fragment_book, container, false);
 
         listView = (ListView) view.findViewById(R.id.list_view_book);
 
         add = (Button) (view.findViewById(R.id.bt_add));
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addBook();
+            }
+        });
 
         return view;
     }
@@ -57,8 +65,14 @@ public class BookActivityFragment extends Fragment {
 
     public void addBook(){
 
+        author = (EditText) view.findViewById(R.id.et_autor);
+        title = (EditText) view.findViewById(R.id.et_titulo);
+
         final String aut = author.getText().toString();
         final String tit = title.getText().toString();
+
+        author.setText("");
+        title.setText("");
 
         if (!aut.isEmpty() && !tit.isEmpty()){
 
@@ -70,6 +84,7 @@ public class BookActivityFragment extends Fragment {
 
                     book1.setTitle(aut);
                     book1.setAuthor(tit);
+                    book1.setAvailable(true);
 
                 }
             }, new Realm.Transaction.OnSuccess() {
@@ -78,7 +93,7 @@ public class BookActivityFragment extends Fragment {
                 public void onSuccess() {
                     // Transaction was a success
                     Log.d("IS","Success");
-                    bookAdapter.notifyDataSetChanged();
+                   // bookAdapter.notifyDataSetChanged();
                 }
             }, new Realm.Transaction.OnError() {
                 @Override
@@ -114,7 +129,7 @@ public class BookActivityFragment extends Fragment {
                 .build();
 
         // Clear the realm from last time
-//        Realm.deleteRealm(realmConfiguration);
+        Realm.deleteRealm(realmConfiguration);
 
         // Create a new empty instance of Realm
         realm = Realm.getInstance(realmConfiguration);

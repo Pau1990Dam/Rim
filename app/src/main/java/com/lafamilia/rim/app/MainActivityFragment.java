@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.lafamilia.rim.R;
 import com.lafamilia.rim.adapters.PartnerAdapter;
+import com.lafamilia.rim.models.Book;
 import com.lafamilia.rim.models.Partner;
 
 import io.realm.OrderedRealmCollection;
@@ -74,7 +75,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 startActivity(i);
                 break;
             case R.id.btnAddBook:
-                i = new Intent(getContext(), PartnerActivity.class);
+                i = new Intent(getContext(), BookActivity.class);
                 startActivity(i);
         }
     }
