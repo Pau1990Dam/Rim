@@ -10,4 +10,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.lafamilia.rim.app.MainActivityFragment"
     tools:showIn="@layout/activity_main">
+
+    <Button
+        android:text="Agregar llibro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAddBook"
+        style="?attr/borderlessButtonStyle"
+        android:layout_centerVertical="true" />
+
+    <Button
+        android:text="Agregar socio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAddPartner"
+        style="?attr/borderlessButtonStyle"
+        android:layout_centerInParent="true"
+        android:layout_alignParentRight="true" />
 </RelativeLayout>
