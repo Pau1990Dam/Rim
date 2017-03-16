@@ -46,8 +46,6 @@ public class PartnerActivityFragment extends Fragment {
                 .name("library.realm")
                 .build();
 
-        // Clear the realm from last time
-        Realm.deleteRealm(realmConfiguration);
 
         // Create a new empty instance of Realm
         realm = Realm.getInstance(realmConfiguration);
