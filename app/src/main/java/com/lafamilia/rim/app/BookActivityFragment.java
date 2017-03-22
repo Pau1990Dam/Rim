@@ -65,8 +65,7 @@ public class BookActivityFragment extends Fragment {
 //        listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                parent.getItemAtPosition(position)
-//
+//                Book book = loadBooks().get(position);
 //
 //            }
 //
