@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -60,6 +61,20 @@ public class BookActivityFragment extends Fragment {
         });
 
         return view;
+
+//        listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                parent.getItemAtPosition(position)
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
     }
 
 
@@ -117,7 +132,6 @@ public class BookActivityFragment extends Fragment {
 
     }
 
-
     private void initRealm() {
         // Initialize Realm
         Realm.init(getContext());
@@ -129,12 +143,11 @@ public class BookActivityFragment extends Fragment {
                 .build();
 
         // Clear the realm from last time
-        Realm.deleteRealm(realmConfiguration);
+        //Realm.deleteRealm(realmConfiguration);
 
         // Create a new empty instance of Realm
         realm = Realm.getInstance(realmConfiguration);
     }
-
 
 
     public RealmResults<Book> loadBooks() {
@@ -147,5 +160,10 @@ public class BookActivityFragment extends Fragment {
         listView.setAdapter(bookAdapter);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
+    }
 
 }

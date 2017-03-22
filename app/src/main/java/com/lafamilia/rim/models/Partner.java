@@ -10,13 +10,13 @@ import io.realm.RealmObject;
 
 public class Partner extends RealmObject {
     private String name;
-    private int age;
+    private String age;
     private RealmList<Book> books ;
 
     public Partner() {
     }
 
-    public Partner(String name, int age) {
+    public Partner(String name, String age) {
         this.name = name;
         this.age = age;
     }
@@ -29,11 +29,11 @@ public class Partner extends RealmObject {
         this.name = name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

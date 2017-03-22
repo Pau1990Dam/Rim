@@ -29,6 +29,8 @@ public class PartnerActivityFragment extends Fragment implements View.OnClickLis
     private ListView listView;
     private Button addPartnet;
     private EditText name, age;
+    private String pName;
+    private String pAge;
 
     public PartnerActivityFragment() {
     }
@@ -47,6 +49,9 @@ public class PartnerActivityFragment extends Fragment implements View.OnClickLis
         listView = (ListView) view.findViewById(R.id.list_view_partner);
 
         Button addPartner= (Button) view.findViewById(R.id.addPartner);
+
+        name= (EditText) view.findViewById(R.id.etName);
+        age = (EditText) view.findViewById(R.id.etAge);
 
         addPartner.setOnClickListener(this);
 
@@ -70,13 +75,14 @@ public class PartnerActivityFragment extends Fragment implements View.OnClickLis
     @Override
     public void onClick(View view) {
 
-        final String pName;
-        final int pAge;
+
 
         pName = name.getText().toString();
-        pAge = Integer.valueOf(age.getText().toString());
+        pAge = age.getText().toString();
+        name.setText("");
+        age.setText("");
 
-        if(pName.isEmpty() || pAge == 0)return;
+        if(pName.isEmpty() || pAge.isEmpty())return;
 
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
@@ -134,4 +140,9 @@ public class PartnerActivityFragment extends Fragment implements View.OnClickLis
         listView.setAdapter(partnerAdapter);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        realm.close();
+    }
 }
