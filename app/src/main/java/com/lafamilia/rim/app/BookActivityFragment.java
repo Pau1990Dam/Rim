@@ -47,7 +47,7 @@ public class BookActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       view = inflater.inflate(R.layout.fragment_book, container, false);
+        view = inflater.inflate(R.layout.fragment_book, container, false);
 
         listView = (ListView) view.findViewById(R.id.list_view_book);
 
@@ -60,22 +60,26 @@ public class BookActivityFragment extends Fragment {
             }
         });
 
-        return view;
 
-//        listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                Book book = loadBooks().get(position);
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                deleteBook(position);
+            }
+        });
+
+        return view;
     }
 
+    public void deleteBook(final int position){
+
+        realm.beginTransaction();
+        Book book = loadBooks().get(position);
+        book.deleteFromRealm();
+        realm.commitTransaction();
+
+    }
 
     public void addBook(){
 

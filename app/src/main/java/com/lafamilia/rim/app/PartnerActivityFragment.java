@@ -7,12 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.lafamilia.rim.R;
 import com.lafamilia.rim.adapters.PartnerAdapter;
+import com.lafamilia.rim.models.Book;
 import com.lafamilia.rim.models.Partner;
 
 import io.realm.Realm;
@@ -27,7 +29,6 @@ public class PartnerActivityFragment extends Fragment implements View.OnClickLis
     private Realm realm;
     private PartnerAdapter partnerAdapter;
     private ListView listView;
-    private Button addPartnet;
     private EditText name, age;
     private String pName;
     private String pAge;
@@ -55,7 +56,24 @@ public class PartnerActivityFragment extends Fragment implements View.OnClickLis
 
         addPartner.setOnClickListener(this);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                deletePartner(position);
+            }
+        });
+
         return view;
+    }
+
+    public void deletePartner(final int position){
+
+        realm.beginTransaction();
+        Partner partner = loadPartners().get(position);
+        partner.deleteFromRealm();
+        realm.commitTransaction();
+
     }
 
     @Override
@@ -74,8 +92,6 @@ public class PartnerActivityFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-
-
 
         pName = name.getText().toString();
         pAge = age.getText().toString();
@@ -128,12 +144,6 @@ public class PartnerActivityFragment extends Fragment implements View.OnClickLis
         realm = Realm.getInstance(realmConfiguration);
     }
 
-
-
-    public RealmResults<Partner> lloadPartners() {
-        // Get a list of partners from the realm database
-        return realm.where(Partner.class).findAll();
-    }
 
     public void setAdapter(){
         partnerAdapter = new PartnerAdapter(loadPartners());
